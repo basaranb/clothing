@@ -5,6 +5,7 @@ import { Route, Switch } from "react-router-dom";
 import Shop from "./pages/shop/shop.component";
 import Header from "./component/header/header.component";
 import SignInAndSignUp from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
+import { auth } from "./firebase/firebase.utils";
 
 const Hats = () => (
   <div>
@@ -12,17 +13,41 @@ const Hats = () => (
   </div>
 );
 
-function App() {
-  return (
-    <div>
-      <Header />
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/shop" component={Shop} />
-        <Route path="/signin" component={SignInAndSignUp}></Route>
-      </Switch>
-    </div>
-  );
+class App extends React.Component {
+  constructor() {
+    super();
+
+    this.state = { currentUser: null };
+  }
+
+  unsubscribeFromAuth = null;
+
+  // Open subscription for auth
+  componentDidMount() {
+    this.unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
+      this.setState({ currentUser: user });
+
+      console.log(user);
+    });
+  }
+
+  // Close subscription for auth to prevent memory leaks
+  componentWillUnmount() {
+    this.unsubscribeFromAuth();
+  }
+
+  render() {
+    return (
+      <div>
+        <Header currentUser={this.state.currentUser} />
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/shop" component={Shop} />
+          <Route path="/signin" component={SignInAndSignUp}></Route>
+        </Switch>
+      </div>
+    );
+  }
 }
 
 export default App;
