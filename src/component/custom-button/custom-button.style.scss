@@ -4,7 +4,8 @@
   color: white;
   border: none;
   background-color: black;
-
+  display: flex;
+  justify-content: center;
   padding: 15px 50px;
   font-weight: bolder;
   text-transform: uppercase;
@@ -25,5 +26,16 @@
     background-color: white;
     color: black;
     border: 1px solid black;
+  }
+
+  &.inverted {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    &:hover {
+      background-color: black;
+      color: white;
+      border: none;
+    }
   }
 }
