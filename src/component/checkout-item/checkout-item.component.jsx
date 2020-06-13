@@ -1,6 +1,10 @@
 import React from "react";
 import "./checkout-item.style.scss";
-import { addItem, removeItem } from "../../redux/cart/cart.actions.js";
+import {
+  addItem,
+  reduceItemQuantity,
+  removeItemFromCart,
+} from "../../redux/cart/cart.actions.js";
 import { connect } from "react-redux";
 
 const CheckoutItem = ({ cartItem, dispatch }) => (
@@ -18,7 +22,7 @@ const CheckoutItem = ({ cartItem, dispatch }) => (
       <span className="quantityNumber">{cartItem.quantity}</span>
       <button
         className="decrease"
-        onClick={() => dispatch(removeItem(cartItem))}
+        onClick={() => dispatch(reduceItemQuantity(cartItem))}
       >
         &#x2304;
       </button>
@@ -30,7 +34,12 @@ const CheckoutItem = ({ cartItem, dispatch }) => (
       </span>
     </div>
     <div className="block close">
-      <button className="close">&#9932;</button>
+      <button
+        className="close"
+        onClick={() => dispatch(removeItemFromCart(cartItem))}
+      >
+        &#9932;
+      </button>
     </div>
   </div>
 );

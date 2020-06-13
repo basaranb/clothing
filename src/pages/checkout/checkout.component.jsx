@@ -29,7 +29,7 @@ const CheckoutPage = (props) => (
     </div>
     <div className="items">
       {props.cartItems.map((cartItem) => (
-        <CheckoutItem cartItem={cartItem}></CheckoutItem>
+        <CheckoutItem key={cartItem.id} cartItem={cartItem}></CheckoutItem>
       ))}
     </div>
     <div className="total">Total: ${props.cartTotal}</div>
