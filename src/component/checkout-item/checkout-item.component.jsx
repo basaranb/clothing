@@ -29,7 +29,7 @@ const CheckoutItem = ({ cartItem, dispatch }) => (
     </div>
     <div className="block price">
       <span className="price">
-        {cartItem.quantity} x {cartItem.price} = $
+        {cartItem.quantity} x ${cartItem.price} = $
         {cartItem.quantity * cartItem.price}
       </span>
     </div>
